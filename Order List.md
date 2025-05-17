@@ -10,7 +10,9 @@
   - [x] 1KΩ Resistor x 10
   - [x] 10KΩ Resistor x 9
   - [x] 100KΩ Resistor x 1
-  - [x] 470Ω Resistor x 24
+  - [ ] 470Ω Resistor x 24
+    - [x] 20 Ordered out of 24.
+    - [ ] 4 Remaining.
   - [x] 1MΩ Resistor x 1
   - [x] 1MΩ Potentiometer
 - [ ] Capacitors
@@ -22,8 +24,8 @@
 - [ ] 74LS00 (NAND Gate) x 2
 - [ ] 74LS02 (NOR Gate) x 1
 - [ ] 74LS04 (Hex Inverter) x 5
-  - [x] 1 Out of 5 Ordered.
-  - [ ] 4 Remaining.
+  - [x] 2 Out of 5 Ordered.
+  - [ ] 3 Remaining.
 - [ ] 74LS08 (AND Gate) x 3
   - [x] 1 Out of 3 Ordered.
   - [ ] 2 Remaining.
