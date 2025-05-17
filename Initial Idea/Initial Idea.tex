@@ -1,0 +1,317 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{siunitx}
+
+
+\geometry{
+    a4paper,
+    left=20mm,
+    right=20mm,
+    top=20mm,
+    bottom=20mm
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\title{\Huge 8-bit CPU Design from Scratch\\
+\Large Initial Design Document}
+\author{Pranav Verma}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+This document outlines the initial design approach for constructing an 8-bit CPU from fundamental components. The project aims to build a fully functional computer system using discrete logic ICs, providing deep insights into computer architecture principles through hands-on experience.
+
+The CPU design follows a modular approach with several key components:
+\begin{itemize}
+    \item Adjustable clock module
+    \item General-purpose registers
+    \item Arithmetic Logic Unit (ALU)
+    \item Random Access Memory (RAM)
+    \item Program Counter
+    \item Output display system
+    \item Control logic unit
+\end{itemize}
+
+Each module will be constructed and tested independently before final integration, allowing for systematic troubleshooting and verification of functionality.
+
+\section{Components List}
+
+Below is a comprehensive list of components required for this project, with prices converted to Indian Rupees (INR). The components are readily available from Indian electronics suppliers or can be ordered online.
+
+\begin{table}[htbp]
+\centering
+\caption{Component List with Prices (INR)}
+\renewcommand{\arraystretch}{1.1}
+\small
+\begin{tabular}{|p{4cm}|c|c|p{2.5cm}|}
+\hline
+\textbf{Component} & \textbf{Unit Price} & \textbf{Total Price} & \textbf{Source} \\
+\hline
+1 × 1k$\Omega$ resistor & 5 INR & 5 INR & Local store\\
+\hline
+9 × 10k$\Omega$ resistor & 5 INR & 45 INR & Local store\\
+\hline
+1 × 100k$\Omega$ resistor & 5 INR & 5 INR & Local store\\
+\hline
+24 × 470$\Omega$ resistor & 5 INR & 120 INR & Local store\\
+\hline
+1 × 1M$\Omega$ resistor & 5 INR & 5 INR & Local store\\
+\hline
+1 × 1M$\Omega$ potentiometer & 80 INR & 80 INR & Local store\\
+\hline
+6 × 0.01µF capacitor & 8 INR & 48 INR & Local store\\
+\hline
+16 × 0.1µF capacitor & 10 INR & 160 INR & Local store\\
+\hline
+1 × 1µF capacitor & 10 INR & 10 INR & Local store\\
+\hline
+4 × 555 timer IC & 20 INR & 80 INR & Local store\\
+\hline
+2 × 74LS00 (Quad NAND) & 50 INR & 100 INR & Local store\\
+\hline
+1 × 74LS02 (Quad NOR) & 40 INR & 40 INR & Local store\\
+\hline
+5 × 74LS04 (Hex inverter) & 40 INR & 200 INR & Local store\\
+\hline
+3 × 74LS08 (Quad AND) & 45 INR & 135 INR & Local store\\
+\hline
+1 × 74LS32 (Quad OR) & 35 INR & 35 INR & Local store\\
+\hline
+1 × 74LS107 (Dual JK FF)* & 120 INR & 120 INR & Online\\
+\hline
+2 × 74LS86 (Quad XOR) & 40 INR & 80 INR & Local store\\
+\hline
+1 × 74LS138 (Decoder) & 45 INR & 45 INR & Local store\\
+\hline
+1 × 74LS139 (Decoder) & 45 INR & 45 INR & Local store\\
+\hline
+4 × 74LS157 (Multiplexer) & 45 INR & 180 INR & Local store\\
+\hline
+2 × 74LS161 (Counter) & 50 INR & 100 INR & Local store\\
+\hline
+8 × 74LS173 (Register) & 85 INR & 680 INR & Local store\\
+\hline
+2 × 74189 (64-bit RAM) & 350 INR & 700 INR & Online\\
+\hline
+6 × 74LS245 (Bus transceiver) & 50 INR & 300 INR & Local store\\
+\hline
+1 × 74LS273 (D flip-flop) & 50 INR & 50 INR & Local store\\
+\hline
+2 × 74LS283 (Binary adder) & 90 INR & 180 INR & Local store\\
+\hline
+3 × 28C16 EEPROM & 250 INR & 750 INR & Online\\
+\hline
+3 × Toggle switch & 60 INR & 180 INR & Local store\\
+\hline
+3 × Tact switch & 25 INR & 75 INR & Local store\\
+\hline
+1 × 8-position DIP switch & 55 INR & 55 INR & Local store\\
+\hline
+1 × 4-position DIP switch & 60 INR & 60 INR & Local store\\
+\hline
+44 × Red LED & 8 INR & 352 INR & Local store\\
+\hline
+8 × Yellow LED & 6 INR & 48 INR & Local store\\
+\hline
+12 × Green LED & 7 INR & 84 INR & Local store\\
+\hline
+21 × Blue LED & 40 INR & 840 INR & Local store\\
+\hline
+4 × 7-segment display & 75 INR & 300 INR & Local store\\
+\hline
+\end{tabular}
+\end{table}
+
+\textit{* Note: The 74LS107 is functionally equivalent to the 74LS76 but has a different pinout. Please refer to the datasheets for proper connections.}
+
+\section{Module Designs}
+
+\subsection{Clock Module}
+
+The clock module serves as the central synchronization mechanism for the entire CPU. It generates precisely timed pulses that coordinate all operations within the system.
+
+\subsubsection{Design Features}
+\begin{itemize}
+    \item Variable frequency operation from sub-1Hz to several hundred Hz
+    \item Manual clock mode for step-by-step debugging
+    \item Visual LED indicator for clock state
+    \item Built around the versatile 555 timer IC
+\end{itemize}
+
+\subsubsection{Implementation Approach}
+The 555 timer will be configured in astable multivibrator mode for automatic clock generation. The addition of a 1M$\Omega$ potentiometer allows for precise frequency adjustment. A switch will toggle between automatic and manual modes, where a momentary push button can advance the clock one cycle at a time.
+
+This module is critical for system debugging as it allows the observation of CPU operations at human-readable speeds or single-step execution to verify proper functioning of each component.
+
+\subsection{Register System}
+
+Registers form the CPU's immediate working memory, storing data actively being processed. Our design includes three 8-bit registers:
+
+\subsubsection{A and B Registers}
+These are general-purpose registers for storing operands during arithmetic and logical operations. They will be constructed using 74LS173 4-bit D-type registers, with two ICs per 8-bit register.
+
+\subsubsection{Instruction Register (IR)}
+The IR holds the current instruction being executed by the CPU. It functions similarly to the general-purpose registers but serves a specialized role in the instruction execution cycle.
+
+Each register will include:
+\begin{itemize}
+    \item 8 LEDs for visual display of current value
+    \item Clock synchronization
+    \item Bus interface for data transfer
+    \item Load and output enable control lines
+\end{itemize}
+
+\subsection{Arithmetic Logic Unit (ALU)}
+
+The ALU performs mathematical and logical operations on data. While commercial CPUs include numerous operations, our simplified ALU focuses on:
+
+\begin{itemize}
+    \item 8-bit binary addition (A + B)
+    \item 8-bit binary subtraction (A - B)
+    \item Status flags for zero and carry conditions
+\end{itemize}
+
+The ALU implementation uses two 74LS283 4-bit binary adders chained together, with additional logic for subtraction via two's complement. An operation selector will determine whether addition or subtraction is performed.
+
+\subsection{Random Access Memory (RAM)}
+
+The RAM module provides temporary storage for both program instructions and data. Our design features:
+
+\begin{itemize}
+    \item 16 bytes of memory (4-bit addressing)
+    \item Read and write capability
+    \item Visual display of memory contents
+    \item Address selection via the program counter or manual override
+\end{itemize}
+
+While 16 bytes is very limited, it's sufficient to demonstrate key CPU concepts through simple programs. The RAM will be implemented using 74189 64-bit RAM ICs.
+
+\subsection{Program Counter}
+
+The program counter tracks which instruction is currently being executed. Key features include:
+
+\begin{itemize}
+    \item 4-bit counter for addressing 16 memory locations
+    \item Automatic increment with each instruction cycle
+    \item Jump capability for program flow control
+    \item Reset function
+\end{itemize}
+
+The module will be built using 74LS161 4-bit synchronous binary counters with additional logic for jumps and reset operations.
+
+\subsection{Output System}
+
+The output system provides visual feedback of CPU operation through:
+
+\begin{itemize}
+    \item 8-bit binary LED display (primary output)
+    \item 7-segment decimal display for human-readable output
+    \item Output register for stable display independent of internal operations
+\end{itemize}
+
+This module uses a 74LS273 octal D flip-flop as the output register, with additional decoding logic to convert binary values to 7-segment display format.
+
+\subsection{Control Logic}
+
+The control logic is the CPU's command center, coordinating all modules based on the current instruction. This complex module:
+
+\begin{itemize}
+    \item Decodes instructions from the instruction register
+    \item Generates appropriate control signals for all modules
+    \item Manages the instruction cycle (fetch, decode, execute)
+    \item Implements the CPU's instruction set
+\end{itemize}
+
+The control logic will be implemented using a combination of discrete logic and programmable EEPROMs to store microcode sequences. This approach simplifies the hardware while maintaining flexibility in the instruction set design.
+
+\section{System Integration}
+
+The modular design approach allows for independent testing of each component before final integration. The central element that connects all modules is an 8-bit data bus, implemented using:
+
+\begin{itemize}
+    \item Common data pathways between all modules
+    \item Bus transceivers (74LS245) for controlled access
+    \item Control signals to manage bus access and prevent conflicts
+\end{itemize}
+
+The integration process will follow this sequence:
+\begin{enumerate}
+    \item Connect clock to all synchronous components
+    \item Establish bus connections between registers and ALU
+    \item Add RAM and program counter to the bus system
+    \item Integrate output display
+    \item Implement control logic and connect control lines
+    \item Verify complete system operation
+\end{enumerate}
+
+\section{Instruction Set}
+
+The CPU will support a minimal but functional instruction set including:
+
+\begin{itemize}
+    \item Data movement (load, store)
+    \item Arithmetic (add, subtract)
+    \item Conditional and unconditional jumps
+    \item Input/output operations
+\end{itemize}
+
+Each instruction will be encoded in 8 bits, with the upper 4 bits defining the operation and the lower 4 bits typically used for memory addressing or immediate values.
+
+\section{Testing and Validation}
+
+Each module will be thoroughly tested before integration:
+
+\begin{itemize}
+    \item Clock module: Verify stable operation at various frequencies and in manual mode
+    \item Registers: Test data storage and retrieval functionality
+    \item ALU: Validate correct computation of sums and differences
+    \item RAM: Verify read/write operations across all addresses
+    \item Program counter: Test increment, reset, and jump operations
+    \item Output system: Confirm correct display of binary and decimal values
+\end{itemize}
+
+System integration testing will involve running simple programs that exercise all aspects of the CPU, gradually increasing in complexity.
+
+\section{Future Enhancements}
+
+Potential extensions to the basic design include:
+
+\begin{itemize}
+    \item Expanded memory capacity (8-bit addressing for 256 bytes)
+    \item Additional ALU operations (logical AND, OR, XOR, shift, etc.)
+    \item Stack implementation for subroutine support
+    \item Hardware interrupts
+    \item Interface to external devices
+\end{itemize}
+
+\section{Conclusion}
+
+This 8-bit CPU project provides an excellent platform for understanding fundamental computer architecture principles through hands-on building and experimentation. Despite its simplicity, the design incorporates all essential elements of a functional CPU: clock, registers, ALU, memory, and control logic.
+
+The modular approach facilitates incremental building and testing, making the project manageable while providing clear visibility into how each component contributes to the overall system. Upon completion, this breadboard computer will be capable of executing simple programs, demonstrating the fundamental principles that underlie all computing systems.
+
+\section{Bibliography}
+- https://eater.net/8bit
+\end{document}
