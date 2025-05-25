@@ -1,8 +1,6 @@
 # All Parts Order List - Status
 
-- [ ] Breadboards x 6
-  - [x] 3 out of 6 Ordered
-  - [ ] 3 Remaining.
+- [x] Breadboards x 6
 - [x] Breadboard PSU
 - [x] Breadboard Cabling
 - [x] 555 Timer x 4
@@ -21,11 +19,9 @@
     - [x] 10 Out of 16 Ordered.
     - [ ] 6 Remaining.
   - [x] 1uF Capacitor x 1
-- [ ] 74LS00 (NAND Gate) x 2
-- [ ] 74LS02 (NOR Gate) x 1
-- [ ] 74LS04 (Hex Inverter) x 5
-  - [x] 2 Out of 5 Ordered.
-  - [ ] 3 Remaining.
+- [x] 74LS00 (NAND Gate) x 2
+- [x] 74LS02 (NOR Gate) x 1
+- [x] 74LS04 (Hex Inverter) x 5
 - [ ] 74LS08 (AND Gate) x 3
   - [x] 1 Out of 3 Ordered.
   - [ ] 2 Remaining.
@@ -34,18 +30,18 @@
 - [ ] 74LS86 (Quad XOR gate) x 2
 - [ ] 74LS138 (3-to-8 line decoder) x 1
 - [ ] 74LS139 (Dual 2-to-8 decoder) x 1
-- [ ] 74LS157 (Quad 2-to-1 line data selector) x 4
+- [x] 74LS157 (Quad 2-to-1 line data selector) x 4
 - [ ] 74LS161 (4-bit synchronous binary counter) x 2
-- [ ] 74LS173 (4-bit D-type register) x 8
-- [ ] 74189 (64-bit random access memory) x 2
-- [ ] 74LS245 (Octal bus transceiver) x 6
-- [ ] 74LS273 (Octal D flip-flop) x 1
-- [ ] 74LS283 (4-bit binary full adder) x 2
+- [x] 74LS173 (4-bit D-type register) x 8
+- [x] 74LS189 (64-bit random access memory) x 2
+- [x] 74LS245 (Octal bus transceiver) x 6
+- [x] 74LS273 (Octal D flip-flop) x 1
+- [x] 74LS283 (4-bit binary full adder) x 2
 - [ ] 28C16 EEPROM x 3
 - [x] Double-throw toggle switch x 3
 - [x] Momentary 6mm tact switch x 3
-- [ ] 8-position DIP switch
-- [ ] 4-position DIP switch
+- [x] 8-position DIP switch
+- [x] 4-position DIP switch
 - [x] Red LEDs
 - [x] Yellow LEDs
 - [x] Green LEDs
