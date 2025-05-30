@@ -27,7 +27,7 @@
   - [ ] 2 Remaining.
 - [x] 74LS32 (OR Gate) x 1
 - [ ] 74LS107 (Dual JK flip-flop) x 1
-- [ ] 74LS86 (Quad XOR gate) x 2
+- [x] 74LS86 (Quad XOR gate) x 2
 - [ ] 74LS138 (3-to-8 line decoder) x 1
 - [ ] 74LS139 (Dual 2-to-8 decoder) x 1
 - [x] 74LS157 (Quad 2-to-1 line data selector) x 4
